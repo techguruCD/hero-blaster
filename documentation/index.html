@@ -1,0 +1,484 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Hero Blaster Documentation</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+    <link rel="stylesheet" href="assets/blueprint-css/prettify.css">
+	<script src="assets/js/prettify.js" defer></script>
+    <script>
+	window.onload = (function(){ prettyPrint(); });
+	</script>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Hero Blaster&rdquo; Documentation by &ldquo;demonisblack&rdquo; v1.3</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;Hero Blaster&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 10/02/2022<br>
+					By: demonisblack<br>
+					Email: <a href="mailto:demonisblack@gmail.com">demonisblack@gmail.com</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing the game. If you have any questions that are beyond the scope of this help file, please feel free to email via profile page contact form <a href="https://codecanyon.net/user/demonisblack">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+        	<li><a href="#introduction">Introduction</a></li>
+            <li><a href="#gettingStarted">Getting Started</a></li>
+            <li><a href="#htmlStructure">HTML Structure</a></li>
+			<li><a href="#cssFiles">CSS Files and Structure</a></li>
+			<li><a href="#javascript">JavaScript</a></li>
+            <li><a href="#gameFunctions">Game Functions</a></li>
+            <li><a href="#gameAssets">Game Assets</a></li>
+            <li><a href="#compatibility">Compatibility</a></li>
+            <li><a href="#addons">Add-ons</a></li>
+			<li><a href="#credits">Sources and Credits</a></li>
+            <li><a href="#changelog">Changelog</a></li>
+            <li><a href="#support">Support Policy</a></li>
+		</ol>
+		
+		<hr>
+        
+        <h3 id="introduction"><strong>A) Introduction</strong> - <a href="#toc">top</a></h3>
+        <p>Hero Blaster is a HTML5 game where you explore the caves to blow up enemies, collect power ups and become stronger to beats the level and get high score. Choose various of theme to play and complete every stages to explore new enemies and power ups.</p>
+        
+        <p>The ZIP package contains the game with 1280×768 and 768×1024 resolution that scales proportionally to fit current screen device.</p>
+
+        <img src="assets/images/feature1.jpg" />
+        <img src="assets/images/feature2.jpg" />
+        
+        <hr>
+        
+        <h3 id="gettingStarted"><strong>B) Getting Started</strong> - <a href="#toc">top</a></h3>
+		<p>To install the game just upload folder 'game' to your server. The game won't run locally with some browser like Chrome due to some security mode.</p>        
+        <p>You need a website that runs PHP to make facebook share button work, and make sure to change Facebook Open Graph meta and Twitter meta in index.html, just replace [GAME_URL] to your game URL.</p>
+        <pre class="prettyprint linenums">
+        &lt;!-- for Facebook --&gt;
+        &lt;meta property=&quot;og:image&quot; content=&quot;[GAME_URL]/share.jpg&quot; /&gt;
+        &lt;meta property=&quot;og:url&quot; content=&quot;[GAME_URL]&quot; /&gt;
+        
+        &lt;!-- for Twitter --&gt;
+        &lt;meta name=&quot;twitter:image&quot; content=&quot;[GAME_URL]/share.jpg&quot; /&gt;
+        </pre>
+        
+        <p>You can easily customize game text and settings in game.js file
+        <pre class="prettyprint linenums">
+//game settings
+var gameSettings = {
+    gridSize:50,
+    playerSpeed:3,
+    moveRange:15,
+    showScreenControl:true, // true always show control, false for auto detect for touch devices
+    screenControlSide:true, //true for right, false for left
+    screenControlAlpha:.6,
+    keyboard:{ //keyboard keycode
+        up:[87,38],
+        left:[65,37],
+        right:[68,39],
+        down:[83,40],
+        bomb:[90],
+        detonator:[88],
+    },
+    brickScore:10
+    ]
+};
+
+//game text display
+var textDisplay = {
+    theme:'CHOOSE THEME',
+    stage:'STAGE [NUMBER]',
+    point:'[NUMBER]PTS',
+    bomb:'x [NUMBER]',
+    enemies:'LEFT : [NUMBER]',
+    timer:'TIME : [NUMBER]',
+    timesup:'TIME\'S UP',
+    gameover:'GAME OVER',
+    complete:'STAGE CLEAR',
+    exitTitle:'EXIT GAME',
+    exitMessage:'Are you sure you want\nto quit game?',
+    share:'Share your score:',
+    resultTitle:'GAME OVER',
+    resultDesc:'[NUMBER]PTS',
+}
+
+//Social share, [SCORE] will replace with game score
+var shareEnable = true; //toggle share
+var shareTitle = 'Highscore on Hero Blaster is [SCORE]';//social share score title
+var shareMessage = '[SCORE] is mine new highscore on Hero Blaster! Try it now!'; //social share score message
+        </pre>
+        </p>
+        
+        <p><strong>themesArr</strong> array load all the themes, below is the explanation of each most important <strong>themesArr</strong> array item:</p>
+		<pre class="prettyprint linenums">
+var themesArr = [
+    {
+        design:{src:"assets/theme_design_01.png", extraHeight:0},
+        bomb:{src:"assets/theme_bomb_01.png", extraHeight:0},
+        explosion:{src:"assets/theme_explosion_01.png", extraHeight:0},
+        player:{src:"assets/theme_character_01.png", extraHeight:0},
+        enemies:{src:"assets/theme_enemy_01.png", extraHeight:0},
+        powers:{src:"assets/theme_powers_01.png", extraHeight:0}
+    }
+]
+        </pre>
+	
+		<ol>
+            <li><strong>design</strong> - map design sprite sheet</li>
+            <li><strong>bomb</strong> - bomb sprite sheet</li>
+            <li><strong>explosion</strong> - explosion sprite sheet</li>
+            <li><strong>player</strong> - player sprite sheet</li>
+            <li><strong>enemies</strong> - enemies sprite sheet</li>
+            <li><strong>powers</strong> - powers sprite sheet</li>
+            *extraHeight = extra height for sprite sheet
+        </ol>
+
+        <p><strong>enemiesArr</strong> array load all the enemies, below is the explanation of each most important <strong>enemiesArr</strong> array item:</p>
+		<pre class="prettyprint linenums">
+var enemiesArr = [
+    {speed:1, walkThroughBrick:false, score:100},
+    {speed:2, walkThroughBrick:false, score:120},
+    {speed:2, walkThroughBrick:true, score:150}
+];
+        </pre>
+	
+		<ol>
+            <li><strong>speed</strong> - enemy move speed</li>
+            <li><strong>walkThroughBrick</strong> - walk through brick (true/false)</li>
+            <li><strong>score</strong> - beat score</li>
+        </ol>
+
+        <p><strong>powersArr</strong> array load all the power ups, below is the explanation of each most important <strong>powersArr</strong> array item:</p>
+		<pre class="prettyprint linenums">
+var powersArr = [
+    {speed:0, bombRange:0, bomb:1, bombThroughBrick:false, walkThroughBrick:false, detonator:false, fireShield:false, bombShield:false, desc:"+BOMB"},
+    {speed:0, bombRange:1, bomb:0, bombThroughBrick:false, walkThroughBrick:false, detonator:false, fireShield:false, bombShield:false, desc:"+BOMB RANGE"},
+    {speed:0, bombRange:0, bomb:0, bombThroughBrick:false, walkThroughBrick:true, detonator:false, fireShield:false, bombShield:false, desc:"WALK\nTHROUGH BRICK"},
+    {speed:1, bombRange:0, bomb:0, bombThroughBrick:false, walkThroughBrick:false, detonator:false, fireShield:false, bombShield:false, desc:"+SPEED"},
+    {speed:0, bombRange:0, bomb:0, bombThroughBrick:false, walkThroughBrick:false, detonator:false, fireShield:false, bombShield:false, desc:"FIRE\nTHOUGH BRICK"},
+    {speed:0, bombRange:0, bomb:0, bombThroughBrick:false, walkThroughBrick:false, detonator:true, fireShield:false, bombShield:false, desc:"DETONATOR"},
+    {speed:0, bombRange:0, bomb:0, bombThroughBrick:false, walkThroughBrick:false, detonator:false, fireShield:true, bombShield:false, desc:"FIRE SHIELD"},
+    {speed:0, bombRange:0, bomb:0, bombThroughBrick:false, walkThroughBrick:false, detonator:false, fireShield:false, bombShield:true, desc:"BOMB SHIELD"},
+];
+        </pre>
+	
+		<ol>
+            <li><strong>speed</strong> - increase speed</li>
+            <li><strong>bombRange</strong> - increase bomb range</li>
+            <li><strong>bomb</strong> - increase bomb</li>
+            <li><strong>bombThroughBrick</strong> - bomb through brick</li>
+            <li><strong>walkThroughBrick</strong> - player walk through brick</li>
+            <li><strong>detonator</strong> - detonator to denotate the bomb</li>
+            <li><strong>fireShield</strong> - walk through fire</li>
+            <li><strong>bombShield</strong> - walk through bomb</li>
+            <li><strong>desc</strong> - power ups description</li>
+        </ol>
+
+        <p><strong>stageArr</strong> array load all the stages, below is the explanation of each most important <strong>stageArr</strong> array item:</p>
+	
+		<pre class="prettyprint linenums">
+var stageArr = [ //stage settings
+    {
+        column:11,
+        row:9,
+        countdown:60000,
+        bricks:20,
+        bomb:1,
+        bombRange:1,
+        enemies:[0,0,0,0],
+        powers:[0,0,1,1,2,3],
+    }
+]
+        </pre>
+	
+		<ol>
+            <li><strong>column</strong> - total column (odd number)</li>
+            <li><strong>row</strong> - total row (odd number)</li>
+            <li><strong>countdown</strong> - countdown timer</li>
+            <li><strong>bricks</strong> - total bricks</li>
+            <li><strong>bomb</strong> - total bomb</li>
+            <li><strong>bombRange</strong> - bomb range</li>
+            <li><strong>enemies</strong> - enemies type from <strong>enemiesArr</strong></li>
+            <li><strong>powers</strong> - power ups type from <strong>powersArr</strong></li>
+        </ol>
+
+        <p>
+        The sound can be easily disabled to avoid compatibility issues in sound.js file:
+        <pre class="prettyprint linenums">
+        var enableDesktopSound = true; //sound for dekstop
+        var enableMobileSound = true; //sound for mobile and tablet
+        </pre>
+        </p>
+
+        <hr>
+		
+		<h3 id="htmlStructure"><strong>C) HTML Structure</strong> - <a href="#toc">top</a></h3>
+        <p>The page start with the loader wrapper that covering the whole screen in the body. It shows loader progress when calls the function <strong>initPreload()</strong></p>
+        <pre class="prettyprint linenums">
+        &lt;!-- PERCENT LOADER START--&gt;
+    	&#x3C;div id=&#x22;mainLoader&#x22;&#x3E;&#x3C;img src=&#x22;assets/loader.png&#x22; /&#x3E;&#x3C;br&#x3E;&#x3C;span&#x3E;0&#x3C;/span&#x3E;&#x3C;/div&#x3E;
+        &lt;!-- PERCENT LOADER END--&gt;
+        </pre>
+        
+        <p>This section is for browser not support page when calls the function <strong>checkBrowser()</strong>. It shows error message when detect the browser does not support canvas.</p>
+        <pre class="prettyprint linenums">
+        &lt;!-- BROWSER NOT SUPPORT START--&gt;
+        &lt;div id=&quot;notSupportHolder&quot;&gt;
+            &lt;div class=&quot;notSupport&quot;&gt;YOUR BROWSER ISN&#39;T SUPPORTED.&lt;br/&gt;PLEASE UPDATE YOUR BROWSER IN ORDER TO RUN THE GAME&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- BROWSER NOT SUPPORT END--&gt;
+        </pre>
+        
+        <p>Follow by one canvas tag in the body. The game start initiatie by calls the main function of the game <strong>initMain()</strong>.</p>
+        <pre class="prettyprint linenums">
+        &lt;!-- CANVAS START--&gt;
+        &lt;div id=&quot;canvasHolder&quot;&gt;
+            &lt;canvas id=&quot;gameCanvas&quot; width=&quot;1280&quot; height=&quot;768&quot;&gt;&lt;/canvas&gt;
+        &lt;/div&gt;
+        &lt;!-- CANVAS END--&gt;
+        </pre>
+		<hr>
+
+		<h3 id="cssFiles"><strong>D) CSS Files and Structure</strong> - <a href="#toc">top</a></h3>
+		<p>I'm using two CSS files in this game. The first one is a generic reset file. Many browser interpret the default behavior of html elements differently. By using a general reset CSS file, we can work round this. This file also contains some general styling, such as anchor tag colors, font-sizes, etc. Keep in mind, that these values might be overridden somewhere else in the file.</p>
+		<p>The second file contains all of the specific stylings for the page.</p>
+        <hr>
+		
+        
+		<h3 id="javascript"><strong>E) JavaScript</strong> - <a href="#toc">top</a></h3>
+		
+		<p>This game using Javascript files below.</p>
+		
+		<ol>
+			<li>
+                <strong>jQuery</strong> is a cross-platform JavaScript library designed to simplify the client-side scripting of HTML.<br/><br/>
+            </li>
+            
+            <li>
+                <strong>Detect Mobile Browser</strong> is a open source scripts to detect mobile browsers and phones.<br/><br/>
+            </li>
+            
+            <li>
+                <strong>CreateJs plugin</strong> is a suite of modular libraries and tools which work together to create interactive content on open web technologies via HTML5.<br/><br/>
+            </li>
+            
+            <li>
+                <strong>TweenMax</strong> is an extremely fast, lightweight, and flexible animation tool that serves as the foundation of the GreenSock Animation Platform (GSAP).<br/><br/>
+            </li>
+            
+            <li>
+                <strong>The game have the following js files</strong>
+                <ul>
+                    <li><strong>init.js :</strong> check if browser or device support <br/><br/></li>
+                    <li><strong>loader.js :</strong> loader to load all game images<br/><br/></li>
+                    <li><strong>main.js :</strong> initiate game setup and browser resize function<br/><br/></li>
+                    <li><strong>mobile.js :</strong> mobile orientation change<br/><br/></li>
+                    <li><strong>canvas.js :</strong> canvas setup and resize<br/><br/></li>
+                    <li><strong>sound.js :</strong> sound event<br/><br/></li>
+                    <li><strong>game.js :</strong> game play and logics<br/><br/></li>
+                    <li><strong>plugins.js :</strong> additonal useful plugins<br/><br/></li>
+                </ul>
+            </li>
+		</ol>
+        
+        <p>Complete game flow:</p>
+		<ol>
+        	<li>The index.html file start init.js for browser detection</li>
+            <li>If browser is supported, init loader.js to start load asserts with loading progress</li>
+            <li>For mobile the rotate instruction shows when device is in portrait view, detect by mobile.js</li>
+            <li>When all asserts contained in "/assets" folder are loaded, the game start construct canvas.js from main.js thats shows game menu</li>
+            <li>If user click play button in game menu, the theme selection page will show</li>
+            <li>If user click select button in theme menu, the game will start with game.js</li>
+            <li>If user press (Up, Down, Left, Right or W, A, S, D) keyboard, the player will move base on direction.</li>
+            <li>If user press Z keyboard, bomb will release and explode in time.</li>
+            <li>If all the enemies are dead, the game will proceed to next stage.</li>
+            <li>If player hit the enemies or hit the explosion or countdown time is over, the game will over.</li>
+            <li>If user click the main button in game result, it will direct to main</li>
+        </ol>
+		
+		<hr>
+        
+        <h3 id="gameFunctions"><strong>F) Game Functions</strong> - <a href="#toc">top</a></h3>
+		
+		<p>The most important functions used for page.</p>
+        <ul>
+        	<li>
+                <strong>checkBrowser()</strong><br/>
+                This function is runs for browser detection<br/><br/>
+            </li>
+            
+            <li>
+                <strong>checkMobileEvent()</strong><br/>
+                This function runs for mobile event<br/><br/>
+            </li>
+        </ul>
+        
+        <p>The most important functions used for game.</p>
+        <ul>
+        	<li>
+                <strong>initMain()</strong><br/>
+                This function build canvas<br/><br/>
+            </li>
+            
+            <li>
+                <strong>startGame()</strong><br/>
+                This function start gameplay<br/><br/>
+            </li>
+            
+            <li>
+                <strong>stopGame()</strong><br/>
+                This function stop gameplay<br/><br/>
+            </li>
+
+            <li>
+                <strong>saveGame()</strong><br>
+                This function save game score<br><br>
+            </li>
+        </ul>
+		<hr>
+        
+        <h3 id="gameAssets"><strong>G) Game Assets</strong> - <a href="#toc">top</a></h3>
+        <p>The game contain 'design' folder which include following:
+        <ol>
+        	<li>heroblaster_1280x768.psd - with layer folders below
+                <ul>
+                <li>Option</li>
+                <li>Result</li>
+                <li>Gameplay</li>
+                <li>Landing</li>
+                </ul>
+        	</li>
+        </ol>
+        </p>
+
+        <p>The folder 'assets' in 'game' folder contains all the images of the game that can be replaced. Is better to have the same size of the old ones if you want to reskin the game graphic without coding.</p>
+		<hr>
+        
+        <h3 id="compatibility"><strong>H) Compatibility</strong> - <a href="#top">top</a></h3>
+		
+		<p>This game is build for Desktop browsers that support HTML5 canvas. Any mobile/tablet should work in landscape view, but they are not officially supported.</p>
+		<hr>
+
+        <h3 id="addons"><strong>I) Add-ons</strong> - <a href="#top">top</a></h3>
+		<p>The add-ons is an additional feature added to the game, below are the add-ons that are compatible with this game:</p>
+		<p></p><a href="https://codecanyon.net/item/scoreboard-for-html5-games/20196860" target="_blank"><img src="assets/images/scoreboard.png" /></a><br />
+        This game is compatible with Scoreboard for HTML5 Games, it is a add-ons page where user can submit score and view top 10 leaderboard. You can get it <a href="https://codecanyon.net/item/scoreboard-for-html5-games/20196860" target="_blank">here</a>.<br /><br /></p>
+
+		<hr>
+		
+		<h3 id="credits"><strong>J) Sources and Credits</strong> - <a href="#toc">top</a></h3>
+		
+		<p>I've used the following font and sound files as listed.</p>
+		
+		<ul>
+			<li><a href="https://www.dafont.com/upheaval.font" target="_blank">Upheaval</a> from file Ænigma</li>
+            <li><a href="https://www.freepik.com/free-vector/design-complete-set-score-button-game-pop-up-icon-window-elements-creating-medieval-rpg-video-games_14246107.htm" target="_blank">Design for complete set of score button game pop-up, icon, window and elements for creating medieval rpg video games</a> from file freepik</li>
+            <li><a href="https://freesound.org/people/EVRetro/sounds/495005/" target="_blank">"Win" Video Game Sound</a> from file EVRetro</li>
+            <li><a href="https://freesound.org/people/EVRetro/sounds/523408/" target="_blank">8-bit Wavering Text Scroll F#2 203 A08 3.wav</a> from file EVRetro</li>
+            <li><a href="https://freesound.org/people/furbyguy/sounds/365641/" target="_blank">8 Bit Alarm.wav</a> from file furbyguy</li>
+            <li><a href="https://freesound.org/people/thehorriblejoke/sounds/259962/" target="_blank">8 Bit Explosion</a> from file thehorriblejoke</li>
+            <li><a href="https://freesound.org/people/jeremysykes/sounds/341240/" target="_blank">Powerup03.wav</a> from file jeremysykes</li>
+            <li><a href="https://freesound.org/people/AbbasGamez/sounds/411443/" target="_blank">Powerup2.wav</a> from file AbbasGamez</li>
+            <li><a href="https://freesound.org/people/FartBiscuit1700/sounds/368691/" target="_blank">8-Bit Arcade Video Game Start Sound Effect, Gun Reload and Jump !!</a> from file FartBiscuit1700</li>
+            <li><a href="https://freesound.org/people/sweet_trip/sounds/260644/" target="_blank">hit_01.wav</a> from file sweet_trip</li>
+            <li><a href="https://freesound.org/people/Tissman/sounds/457756/" target="_blank">fail8.wav</a> from file Tissman</li>
+            <li><a href="https://freesound.org/people/ProjectsU012/sounds/333785/" target="_blank">8-bit "failure" sound</a> from file ProjectsU012</li>
+            <li><a href="https://freesound.org/people/weaverfishable/sounds/151780/" target="_blank">8bit mix</a> from file weaverfishable</li>
+            <li><a href="https://freesound.org/people/BloodPixelHero/sounds/476791/" target="_blank">bums.wav</a> from file BloodPixelHero</li>
+            <li><a href="https://freesound.org/people/josefpres/sounds/624395/" target="_blank">8 bit game loop 003 simple mix 1 long 120 bpm.wav</a> from file josefpres</li>
+            <li><a href="https://freesound.org/people/kasa90/sounds/167419/" target="_blank">Chiptune Loop</a> from file kasa90</li>
+            
+		</ul>
+		
+		<hr>
+        
+        <h3 id="changelog"><strong>K) Changelog</strong> - <a href="#toc">top</a></h3>
+
+        Version 1.3
+		<ul>
+			<li>Prevent iframe scrolling</li>
+		</ul>
+
+        Version 1.2
+		<ul>
+			<li>Updated sound function</li>
+			<li>Added music button</li>
+		</ul>
+
+        Version 1.1		
+		<ul>
+			<li>Fixed map issue</li>
+			<li>Fixed fullscreen issue</li>
+		</ul>
+		
+		<hr>
+		
+		<h3 id="support"><strong>L) Support Policy</strong> - <a href="#toc">top</a></h3>
+
+		<p>Check out support policy <a href="https://demonisblack.com/code/support-policy/">here</a>.</p>
+
+        <strong>Wordpress Site</strong><br/>
+        <p>
+            By using Scoreboard for HTML5 Games plugin, you can embed HTML5 game into WordPress post or page.<br>
+            <a href="https://wordpress.org/plugins/scoreboard-for-html5-game-lite/" target="_blank">> Plugin</a>
+        </p>
+
+        <strong>Ad Placeholder</strong><br/>
+        <p>
+            Help simulate ads on HTML5 Games, you can integrate and display static and takeover ads through different Ads Serving Platform.<br>
+            <a href="https://demonisblack.com/code/ads/" target="_blank">> Documentation</a>
+        </p>
+
+        <strong>Instant Games – Facebook</strong><br/>
+        <p>
+            Guide you through integrating Facebook Instant Games API in our HTML5 Games.<br>
+            <a href="https://demonisblack.com/code/instantgames/" target="_blank">> Documentation</a>
+        </p>
+		<hr>
+		
+		<p>Once again, thank you so much for purchasing this game, if you have a more general question relating to the games on CodeCanyon, you might consider visiting the item page in the <a href="https://codecanyon.net/item/hero-blaster-html5-game/40178476/support">"Support"</a> section.</p>
+		<img src="assets/images/rate.png" />
+        
+        <p>
+        	<h3>How to rate an item on CodeCanyon?</h3>
+            Use the steps below to rate our items on CodeCanyon:
+            <ol>
+                <li>Login to CodeCanyon</li>
+                <li>Open the menu on the top right, and click onto the link “Downloads” which shows a list of your downloads</li>
+                <li>Rate our items using the stars</li>
+                <li>That’s it. Thank you very much!</li>
+            </ol>
+            <img src="assets/images/rateguide.png" />
+        </p>
+		
+		<p class="append-bottom alt large"><strong>demonisblack</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
